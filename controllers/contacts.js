@@ -1,4 +1,3 @@
-// const contacts = require("../models/contacts");
 const { Contacts } = require("../schemas/contacts");
 const { HttpError, ctrlWrapper } = require("../helpers");
 

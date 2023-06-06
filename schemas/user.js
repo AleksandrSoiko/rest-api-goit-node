@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Joi = require("joi");
 
 const { handleMongooseError } = require("../helpers");
 
@@ -23,6 +22,7 @@ const userSchema = new Schema(
       enum: ["starter", "pro", "business"],
       default: "starter",
     },
+    avatarURL: String,
     token: String,
   },
   { versionKey: false, timestamps: true }
@@ -30,14 +30,8 @@ const userSchema = new Schema(
 
 userSchema.post("save", handleMongooseError);
 
-const signupSchema = Joi.object({
-  password: Joi.string().required().min(8),
-  email: Joi.string().pattern(emailRegexp).required(),
-});
-
 const User = mongoose.model("user", userSchema);
 
 module.exports = {
   User,
-  signupSchema,
 };

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ctrl = require("../../controllers/auth");
 const schemas = require("../../schemas/signupJoiSchema");
+const schema = require("../../schemas/signupJoiSchema");
 
 const { authenticate, validateBody } = require("../../middlewares");
 const upload = require("../../middlewares/upload");
@@ -11,6 +12,9 @@ router.post(
   validateBody(schemas.signupSchema, "missing required field"),
   ctrl.register
 );
+router.get("/verify/:verificationToken", ctrl.verifyWr);
+
+router.post("/verify", validateBody(schema.emailSchema), ctrl.resendVerify);
 
 router.post(
   "/login",
